@@ -1,4 +1,4 @@
-# 4_Corners_Probe
+# 4 Corners Probe
 Add PathPilot hotkeys to probe NW, SW, NE or SE corner.  You must be on the Probing screen, then press one of the following keys.
 
 F9 = NW Corner<br>
