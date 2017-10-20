@@ -1,0 +1,93 @@
+o<probe_corner_se> sub
+(probe to find south-east corner and set origin)
+(#2 = x min limit from calling function)
+(#3 = y max limit from calling function)
+
+#<feed_ruff> = #1        (feed rate from UI main screen DRO)
+#<feed_fine> = [#<feed_ruff> / 20]
+
+G90 (set to absolute position mode)
+G92.1  (Cancel G92 offset, maybe some day it should be allowed)
+
+o100 if [#<_metric> EQ 1]
+    #<unit_conv> = 25.4
+o100 else
+    #<unit_conv> = 1
+o100 endif
+
+o110 if [#5220 EQ 1]      (G54, 5520 = current work space ID 1-9) 
+  #<workspace_x> = #5221
+  #<workspace_y> = #5222
+o110 elseif [#5220 EQ 2]  (G55)
+  #<workspace_x> = #5241
+  #<workspace_y> = #5242
+o110 elseif [#5220 EQ 3]  (G56)
+  #<workspace_x> = #5261
+  #<workspace_y> = #5262
+o110 elseif [#5220 EQ 4]  (G57)
+  #<workspace_x> = #5281
+  #<workspace_y> = #5282
+o110 elseif [#5220 EQ 5]  (G58)
+  #<workspace_x> = #5301
+  #<workspace_y> = #5302
+o110 elseif [#5220 EQ 6]  (G59)
+  #<workspace_x> = #5321
+  #<workspace_y> = #5322
+o110 elseif [#5220 EQ 7]  (G59.1)
+  #<workspace_x> = #5341
+  #<workspace_y> = #5342
+o110 elseif [#5220 EQ 8]  (G59.2)
+  #<workspace_x> = #5361
+  #<workspace_y> = #5362
+o110 elseif [#5220 EQ 9]  (G59.3)
+  #<workspace_x> = #5381
+  #<workspace_y> = #5382
+o110 else                 (default to G54)
+  #<workspace_x> = #5221
+  #<workspace_y> = #5222
+o110 endif
+
+(Get current position so we know where to return when done)
+#<x_start> = #5420   (Current X Location)
+#<y_start> = #5421   (Current Y Location)
+
+#<x_min> = [[#2 - #<workspace_x> + .001] * #<unit_conv>]
+#<y_max> = [[#3 - #<workspace_y> - .001] * #<unit_conv>]
+
+#<tip_radius> = [[#5410 / 2] * #<unit_conv>]  (Probe Tip Radius)
+#<ruff_ret> = [.050 * #<unit_conv>]
+
+G0 Y [#<y_start> + [.75 * #<unit_conv>]]
+F #<feed_ruff>
+G38.2 X #<x_min>     (rough probe west side)
+#<x_minus_ruff> = #5061
+G38.6 X [#<x_minus_ruff> - #<ruff_ret>]
+F #<feed_fine>
+G38.2 X #<x_min>     (finish probe)
+#<x_minus>=#5061      (save results)
+F #<feed_ruff>
+G38.6 X #<x_start>
+G0 Y #<y_start>        (return to start)
+
+G0 X [#<x_start> + [.75 * #<unit_conv>]]
+F #<feed_ruff>
+G38.2 Y #<y_max>               (rough probe north side)
+#<y_plus_ruff> = #5062
+G38.6 Y [#<y_plus_ruff> + #<ruff_ret>]
+F #<feed_fine>
+G38.2 Y #<y_max>             (finish probe)
+#<y_plus> = #5062      (save results)
+F #<feed_ruff>
+G38.6 Y #<y_start>        (return to start)
+G0 X #<x_start>
+
+#<workspace_x_conv> = [#<workspace_x> * #<unit_conv>]
+#<workspace_y_conv> = [#<workspace_y> * #<unit_conv>]
+G10 L2 P #5220 X [#<x_minus> + #<workspace_x_conv> + #<tip_radius>] Y [#<y_plus> + #<workspace_y_conv> - #<tip_radius>]  (set XY to zero)
+
+F #<feed_ruff>
+
+o<probe_corner_se> endsub
+
+M02 (end program)
+
