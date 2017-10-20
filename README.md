@@ -8,4 +8,4 @@ F12 = SE Corner<br>
 
 This will not change the default SW corner probing routine found on the PathPilot probing page.
 
-DISCLAIMER:  Use at your own risk.  After installing you should test each routine with your probe far away from any part.  Use your finger to trigger the probe.
+<b>DISCLAIMER</b>:  Use at your own risk.  After installing you should test each routine with your probe far away from any part.  Use your finger to trigger the probe.
