@@ -59,7 +59,7 @@ o110 endif
 
 G0 Y [#<y_start> - [.75 * #<unit_conv>]]
 F #<feed_ruff>
-G38.2 X #<x_min>     (rough probe west side)
+G38.2 X #<x_min>     (rough probe east side)
 #<x_minus_ruff> = #5061
 G38.6 X [#<x_minus_ruff> - #<ruff_ret>]
 F #<feed_fine>
@@ -69,7 +69,7 @@ F #<feed_ruff>
 G38.6 X #<x_start>
 G0 Y #<y_start>        (return to start)
 
-G0 X [#<x_start> + [.75 * #<unit_conv>]]
+G0 X [#<x_start> - [.75 * #<unit_conv>]]
 F #<feed_ruff>
 G38.2 Y #<y_min>               (rough probe north side)
 #<y_minus_ruff> = #5062
@@ -83,7 +83,7 @@ G0 X #<x_start>
 
 #<workspace_x_conv> = [#<workspace_x> * #<unit_conv>]
 #<workspace_y_conv> = [#<workspace_y> * #<unit_conv>]
-G10 L2 P #5220 X [#<x_minus> + #<workspace_x_conv> + #<tip_radius>] Y [#<y_minus> + #<workspace_y_conv> - #<tip_radius>]  (set XY to zero)
+G10 L2 P #5220 X [#<x_minus> + #<workspace_x_conv> - #<tip_radius>] Y [#<y_minus> + #<workspace_y_conv> - #<tip_radius>]  (set XY to zero)
 
 F #<feed_ruff>
 
