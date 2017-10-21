@@ -1,4 +1,4 @@
-o<probe_corner_nw> sub
+o<probe_corner_northwest> sub
 (probe to find north-west corner and set origin)
 (#2 = x max limit from calling function)
 (#3 = y min limit from calling function)
@@ -87,7 +87,7 @@ G10 L2 P #5220 X [#<x_plus> + #<workspace_x_conv> + #<tip_radius>] Y [#<y_minus>
 
 F #<feed_ruff>
 
-o<probe_corner_nw> endsub
+o<probe_corner_northwest> endsub
 
 M02 (end program)
 
