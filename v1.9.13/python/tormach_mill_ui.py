@@ -3309,13 +3309,13 @@ class mill(TormachUIBase):
 			probing.find_corner_northwest(self)
 
         if kv == gtk.keysyms.F10 and event.type == gtk.gdk.KEY_RELEASE and self.current_notebook_page == PROBE_PAGE:
-			probing.find_corner_sw(self)
+			probing.find_corner_northeast(self)
 				
         if kv == gtk.keysyms.F11 and event.type == gtk.gdk.KEY_RELEASE and self.current_notebook_page == PROBE_PAGE:
-			probing.find_corner_ne(self)	
+			probing.find_corner_southeast(self)	
 
         if kv == gtk.keysyms.F12 and event.type == gtk.gdk.KEY_RELEASE and self.current_notebook_page == PROBE_PAGE:
-			probing.find_corner_se(self)				
+			probing.find_corner_southwest(self)				
 					
         # Utilities
         if kv == gtk.keysyms.F1 and event.type == gtk.gdk.KEY_PRESS:
