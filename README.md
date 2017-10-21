@@ -8,4 +8,14 @@ F12 = South West Corner (Default PP corner probing)<br>
 
 This will not change the default SW corner probing routine found on the PathPilot probing page.  These routines work exactly like the default PathPilot corner probe routine in that you need to have your probe tip positioned less than .750 away from the corner in both x and y. The PathPilot version number in the lower right hand corner of the screen will read V1.9.13-SA
 
+<b>Installation<b><br>
+
+Download zip and extract to USB drive.  
+While on PP screen, press CRTL, ALT, X to bring up terminal window
+In the terminal window type in NAUTILUS
+Copy the v1.9.13 from the usb drive to the home folder
+Merge and replace when prompted
+ALT-TAB back to PathPilot and restart
+You should now see "V1.9.13-SA" in the lower right.
+
 <b>DISCLAIMER</b>:  Use at your own risk.  After installing you should test each routine with your probe far away from any part.  Use your finger to trigger the probe.
