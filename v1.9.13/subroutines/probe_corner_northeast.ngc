@@ -1,4 +1,4 @@
-o<probe_corner_ne> sub
+o<probe_corner_northeast> sub
 (probe to find north-east corner and set origin)
 (#2 = x min limit from calling function)
 (#3 = y min limit from calling function)
@@ -87,7 +87,7 @@ G10 L2 P #5220 X [#<x_minus> + #<workspace_x_conv> - #<tip_radius>] Y [#<y_minus
 
 F #<feed_ruff>
 
-o<probe_corner_ne> endsub
+o<probe_corner_northeast> endsub
 
 M02 (end program)
 
