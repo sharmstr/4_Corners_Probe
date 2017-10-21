@@ -61,7 +61,7 @@ G0 Y [#<y_start> - [.75 * #<unit_conv>]]
 F #<feed_ruff>
 G38.2 X #<x_min>     (rough probe east side)
 #<x_minus_ruff> = #5061
-G38.6 X [#<x_minus_ruff> - #<ruff_ret>]
+G38.6 X [#<x_minus_ruff> + #<ruff_ret>]
 F #<feed_fine>
 G38.2 X #<x_min>     (finish probe)
 #<x_minus>=#5061      (save results)
