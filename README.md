@@ -10,12 +10,12 @@ This will not change the default SW corner probing routine found on the PathPilo
 
 <b>Installation<b><br>
 
-Download zip and extract to USB drive.  
-While on PP screen, press CRTL, ALT, X to bring up terminal window
-In the terminal window type in NAUTILUS
-Copy the v1.9.13 from the usb drive to the home folder
-Merge and replace when prompted
-ALT-TAB back to PathPilot and restart
-You should now see "V1.9.13-SA" in the lower right.
+Download zip and extract to USB drive<br>
+While on PathPilot screen, press CRTL+ALT+X to bring up terminal window<br>
+In the terminal window type in NAUTILUS and press ENTER<br>
+Copy the v1.9.13 from the usb drive to the HOME FOLDER<br>
+Merge All and Replace All when prompted<br>
+ALT+TAB to cycle back to PathPilot and restart<br>
+You should now see "V1.9.13-SA" in the lower right.<br>
 
 <b>DISCLAIMER</b>:  Use at your own risk.  After installing you should test each routine with your probe far away from any part.  Use your finger to trigger the probe.
