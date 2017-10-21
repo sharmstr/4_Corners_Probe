@@ -13,7 +13,7 @@ This will not change the default SW corner probing routine found on the PathPilo
 Download zip and extract to USB drive<br>
 While on PathPilot screen, press CRTL+ALT+X to bring up terminal window<br>
 In the terminal window type in NAUTILUS and press ENTER<br>
-Copy the v1.9.13 from the usb drive to the HOME FOLDER<br>
+Copy the v1.9.13 folder from the usb drive to the HOME FOLDER<br>
 Merge All and Replace All when prompted<br>
 ALT+TAB to cycle back to PathPilot and restart<br>
 You should now see "V1.9.13-SA" in the lower right.<br>
