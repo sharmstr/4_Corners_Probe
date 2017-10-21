@@ -3306,7 +3306,7 @@ class mill(TormachUIBase):
         
         # Probing Buttons
         if kv == gtk.keysyms.F9 and event.type == gtk.gdk.KEY_RELEASE and self.current_notebook_page == PROBE_PAGE:
-			probing.find_corner_nw(self)
+			probing.find_corner_northwest(self)
 
         if kv == gtk.keysyms.F10 and event.type == gtk.gdk.KEY_RELEASE and self.current_notebook_page == PROBE_PAGE:
 			probing.find_corner_sw(self)
