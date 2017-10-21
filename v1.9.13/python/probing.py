@@ -106,7 +106,7 @@ def find_corner_northwest(self):
     ylimit = self.status.axis[1]['min_position_limit']
     self.issue_mdi('o<probe_corner_northwest> call [%f] [%f] [%f]' % (feedrate, xlimit, ylimit))
     
-def find_corner_sw(self):
+def find_corner_southwest(self):
     ready = check_probe_ready(self)
     if not ready:
         return
@@ -116,9 +116,9 @@ def find_corner_sw(self):
     feedrate = check_max_feedrate(self)
     xlimit = self.status.axis[0]['max_position_limit']
     ylimit = self.status.axis[1]['max_position_limit']
-    self.issue_mdi('o<probe_corner_sw> call [%f] [%f] [%f]' % (feedrate, xlimit, ylimit))
+    self.issue_mdi('o<probe_corner_southwest> call [%f] [%f] [%f]' % (feedrate, xlimit, ylimit))
 
-def find_corner_se(self):
+def find_corner_southeast(self):
     ready = check_probe_ready(self)
     if not ready:
         return
@@ -128,9 +128,9 @@ def find_corner_se(self):
     feedrate = check_max_feedrate(self)
     xlimit = self.status.axis[0]['min_position_limit']
     ylimit = self.status.axis[1]['max_position_limit']
-    self.issue_mdi('o<probe_corner_se> call [%f] [%f] [%f]' % (feedrate, xlimit, ylimit))
+    self.issue_mdi('o<probe_corner_southeast> call [%f] [%f] [%f]' % (feedrate, xlimit, ylimit))
     
-def find_corner_ne(self):
+def find_corner_northeast(self):
     ready = check_probe_ready(self)
     if not ready:
         return
@@ -140,7 +140,7 @@ def find_corner_ne(self):
     feedrate = check_max_feedrate(self)
     xlimit = self.status.axis[0]['min_position_limit']
     ylimit = self.status.axis[1]['min_position_limit']
-    self.issue_mdi('o<probe_corner_ne> call [%f] [%f] [%f]' % (feedrate, xlimit, ylimit))    
+    self.issue_mdi('o<probe_corner_northeast> call [%f] [%f] [%f]' % (feedrate, xlimit, ylimit))    
 
 def find_x_plus_origin(self):
     ready = check_probe_ready(self)
