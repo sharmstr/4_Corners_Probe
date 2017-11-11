@@ -2,6 +2,7 @@
 Adds new PathPilot probing tab "Corner Probes" and hotkeys to probe NW, SW, NE or SE corner. You must be on the Probing screen.
 
 <b>Keyboard Shortcuts:</b>
+
 F9 = North West Corner
 F10 = North East Corner
 F11 = South East Corner
