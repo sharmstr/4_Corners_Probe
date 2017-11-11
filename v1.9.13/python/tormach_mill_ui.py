@@ -514,7 +514,7 @@ class mill(TormachUIBase):
         # create a list of image object names
         self.pixbuf_dict = {}
         #TODO move scanner images to scanner_gui_init
-        image_set = ('cycle_start_image', 'single_block_image', 'm01_break_image', 'feedhold_image',
+        image_set = ('g54_image','g55_image','g56_image','g57_image','g58_image','g59_image','g591_image','g592_image','g593_image','cycle_start_image', 'single_block_image', 'm01_break_image', 'feedhold_image',
                            'coolant_image', 'ccw_image', 'cw_image', 'spindle_range_image', 'spindle_override_100_image',
                            'feed_override_100_image', 'maxvel_override_100_image', 'reset_image', 'jog_inc_cont_image',
                            'ref_x_image', 'ref_y_image', 'ref_z_image', 'ref_a_image',
@@ -523,7 +523,7 @@ class mill(TormachUIBase):
                            'm6_g43_image',
                            'tool_touch_chuck', 'touch_z_image',
                            'set_g30_image', 'x_limit_led', 'y_limit_led', 'z_limit_led',
-                           'touch_entire_tray_ets_image', 'acc_input_led', 'acc_input_led1', 'acc_input_led2', 'acc_input_led3',
+                           'touch_entire_tray_ets_image', 'acc_input_led', 'acc_input_led1', 'acc_input_led2', 'acc_input_led3','acc_input_led_sa',
                            'probe_sensor_set_image', 'ets_image',
                            'injection_molder_image', 'door_sw_led', 'machine_ok_led',
                            'usbio_input_0_led', 'usbio_input_1_led', 'usbio_input_2_led', 'usbio_input_3_led',
@@ -549,7 +549,7 @@ class mill(TormachUIBase):
         self.image_list = dict(((i, self.builder.get_object(i))) for i in image_set)
 
         # gtk.eventboxes
-        self.button_list = ('cycle_start', 'single_block', 'm01_break', 'feedhold', 'stop', 'coolant', 'reset',
+        self.button_list = ('g54','g55','g56','g57','g58','g59','g591','g592','g593','sa_probe_find_corner_northwest','sa_probe_find_corner_northeast','sa_probe_find_corner_southwest','sa_probe_find_corner_southeast','cycle_start', 'single_block', 'm01_break', 'feedhold', 'stop', 'coolant', 'reset',
                             'feedrate_override', 'rpm_override', 'maxvel_override', 'jog_inc_cont',
                             'ref_x', 'ref_y', 'ref_z', 'ref_a',
                             'zero_x', 'zero_y', 'zero_z', 'zero_a',
@@ -3388,7 +3388,7 @@ class mill(TormachUIBase):
             self.stop_all_jogging()
             return True
 
-        if event.type == gtk.gdk.KEY_RELEASE and (kv in self.jogging_keys or kv in self.mykeys):
+        if event.type == gtk.gdk.KEY_RELEASE and kv in self.jogging_keys:
             self.jogging_key_pressed[kv] = False
             # right or left - x axis
             if kv ==  gtk.keysyms.Left or kv == gtk.keysyms.Right:
@@ -3408,10 +3408,7 @@ class mill(TormachUIBase):
                 self.stop_jog(jog_axis)
             return True
 
-        elif ( 
-	    event.type == gtk.gdk.KEY_PRESS 
-	    and (kv in self.jogging_keys or kv in self.mykeys)
-	    ):
+        elif event.type == gtk.gdk.KEY_PRESS and kv in self.jogging_keys:
             #print self.jogging_key_pressed
             if kv == gtk.keysyms.Right:
                 # right arrow - X positive
@@ -3438,25 +3435,6 @@ class mill(TormachUIBase):
             elif kv == gtk.keysyms.comma:
                 jog_axis = 3
                 jog_direction = -1
-	    elif event.state & gtk.gdk.MOD1_MASK:
-		if kv == gtk.keysyms.l and self.jog_mode == linuxcnc.JOG_INCREMENT:
-			jog_axis=0
-			jog_direction=1
-	    	if kv == gtk.keysyms.j and self.jog_mode == linuxcnc.JOG_INCREMENT:
-			jog_axis=0
-			jog_direction=-1
-		if kv == gtk.keysyms.i and self.jog_mode == linuxcnc.JOG_INCREMENT:
-			jog_axis=1
-			jog_direction=1
-	    	if kv == gtk.keysyms.k and self.jog_mode == linuxcnc.JOG_INCREMENT:
-			jog_axis=1
-			jog_direction=-1
-		if kv == gtk.keysyms.p and self.jog_mode == linuxcnc.JOG_INCREMENT:
-			jog_axis=2
-			jog_direction=-1
-	    	if kv == gtk.keysyms.o and self.jog_mode == linuxcnc.JOG_INCREMENT:
-			jog_axis=2
-			jog_direction=1
             # After determining the axis and direction, run the jog iff the key
             # is not already depressed
 
@@ -3473,131 +3451,6 @@ class mill(TormachUIBase):
         if kv == gtk.keysyms.space and self.moving():
             self.enqueue_button_press_release(self.button_list['feedhold'])
             return True
-
-	if kv==gtk.keysyms._1 and event.state & gtk.gdk.CONTROL_MASK:
-		self.enqueue_button_press_release(self.button_list['zero_x'])	    
-		return True	
-
-	if kv==gtk.keysyms._2 and event.state & gtk.gdk.CONTROL_MASK:
-		self.on_dro_gets_focus(self.dro_list['x_dro'], None)
-		self.dro_list['x_dro'].grab_focus()
-
-	if kv==gtk.keysyms._3 and event.state & gtk.gdk.CONTROL_MASK:
-		self.enqueue_button_press_release(self.button_list['zero_y'])	    
-		return True	
-
-	if kv==gtk.keysyms._4 and event.state & gtk.gdk.CONTROL_MASK:
-		self.on_dro_gets_focus(self.dro_list['y_dro'], None)
-		self.dro_list['y_dro'].grab_focus()
-		return True
-
-	if kv==gtk.keysyms._5 and event.state & gtk.gdk.CONTROL_MASK:
-		self.enqueue_button_press_release(self.button_list['zero_z'])	    
-		return True	
-
-	if kv==gtk.keysyms._6 and event.state & gtk.gdk.CONTROL_MASK:
-		self.on_dro_gets_focus(self.dro_list['z_dro'], None)
-		self.dro_list['z_dro'].grab_focus()
-		return True
-
-	if kv==gtk.keysyms._7 and event.state & gtk.gdk.CONTROL_MASK:
-		self.on_tool_dro_gets_focus(self.dro_list['tool_dro'], None)
-		self.dro_list['tool_dro'].grab_focus()
-		return True
-
-	if kv==gtk.keysyms._8 and event.state & gtk.gdk.CONTROL_MASK:
-		self.enqueue_button_press_release(self.button_list['jog_0001'])
-		return True
-	
-	if kv==gtk.keysyms._9 and event.state & gtk.gdk.CONTROL_MASK:
-		self.enqueue_button_press_release(self.button_list['jog_0010'])
-		return True
-
-	if kv==gtk.keysyms._0 and event.state & gtk.gdk.CONTROL_MASK:
-		self.enqueue_button_press_release(self.button_list['jog_0100'])
-		return True
-
-	if kv==gtk.keysyms.minus and event.state & gtk.gdk.CONTROL_MASK:
-		self.enqueue_button_press_release(self.button_list['jog_1000'])
-		return True
-
-
-	if kv==gtk.keysyms.h and event.state & gtk.gdk.MOD1_MASK:
-	    self.enqueue_button_press_release(self.button_list['jog_inc_cont'])
-	    return True
-
-	if kv==gtk.keysyms._1 and event.state & gtk.gdk.MOD1_MASK:	
-	    curr_feed_override=self.feedrate_override_adjustment.get_value()
-	    if not curr_feed_override<=0: 
-		if curr_feed_override<=20:
-			self.feedrate_override_adjustment.set_value(int(curr_feed_override)-1)
-		else:		
-			self.feedrate_override_adjustment.set_value(int(curr_feed_override)-5)
-	    return True
-
-	if kv==gtk.keysyms._2 and event.state & gtk.gdk.MOD1_MASK:
-	    curr_feed_override=self.feedrate_override_adjustment.get_value()
-	    if not curr_feed_override>=150: 
-		if curr_feed_override<=19:
-			self.feedrate_override_adjustment.set_value(int(curr_feed_override)+1)
-		else:		
-			self.feedrate_override_adjustment.set_value(int(curr_feed_override)+5)
-	    return True
-		
-	if kv==gtk.keysyms._9 and event.state & gtk.gdk.MOD1_MASK:	
-	    self.enqueue_button_press_release(self.button_list['feedrate_override'])
-	    return True
-		
-	if kv==gtk.keysyms._3 and event.state & gtk.gdk.MOD1_MASK:
-	    curr_spindle_override=self.spindle_override_adjustment.get_value()
-	    if not curr_spindle_override<=0:
-		self.spindle_override_adjustment.set_value(int(curr_spindle_override)-5)
-	    return True
-	
-	if kv==gtk.keysyms._4 and event.state & gtk.gdk.MOD1_MASK:
-	    curr_spindle_override=self.spindle_override_adjustment.get_value()
-	    if not curr_spindle_override>=150: 
-		self.spindle_override_adjustment.set_value(int(curr_spindle_override)+5)
-	    return True
-		
-	if kv==gtk.keysyms._0 and event.state & gtk.gdk.MOD1_MASK:	
-	    self.enqueue_button_press_release(self.button_list['rpm_override'])
-	    return True
-	
-	if kv==gtk.keysyms._5 and event.state & gtk.gdk.MOD1_MASK:
-	    curr_maxvel_override=self.maxvel_override_adjustment.get_value()
-	    if not curr_maxvel_override<=0: 
-		if curr_maxvel_override<=20:
-			self.maxvel_override_adjustment.set_value(int(curr_maxvel_override)-1)
-		else:		
-			self.maxvel_override_adjustment.set_value(int(curr_maxvel_override)-5)
-	    return True
-	
-	if kv==gtk.keysyms._6 and event.state & gtk.gdk.MOD1_MASK:
-	    curr_maxvel_override=self.maxvel_override_adjustment.get_value()
-	    if not curr_maxvel_override>=100: 
-		if curr_maxvel_override<=19:
-			self.maxvel_override_adjustment.set_value(int(curr_maxvel_override)+1)
-		else:		
-			self.maxvel_override_adjustment.set_value(int(curr_maxvel_override)+5)
-	    return True
-		
-	if kv==gtk.keysyms.minus and event.state & gtk.gdk.MOD1_MASK:	
-	    self.enqueue_button_press_release(self.button_list['maxvel_override'])
-	    return True
-	
-	if kv==gtk.keysyms._7 and event.state & gtk.gdk.MOD1_MASK:
-	    curr_jogspeed_override=self.jog_speed_adjustment.get_value()
-	    if not curr_jogspeed_override>=150: 
-		self.jog_speed_adjustment.set_value(curr_jogspeed_override-2)
-	    return True
-
-	if kv==gtk.keysyms._8 and event.state & gtk.gdk.MOD1_MASK:
-	    curr_jogspeed_override=self.jog_speed_adjustment.get_value()
-	    if not curr_jogspeed_override<=0: 
-		self.jog_speed_adjustment.set_value(curr_jogspeed_override+2)
-	    print int(curr_jogspeed_override)
-	    return True	
 
         # Escape key for stop
         if kv == gtk.keysyms.Escape:
@@ -4016,6 +3869,41 @@ class mill(TormachUIBase):
 
             self.command.jog(jog_mode,  jog_axis, speed, displacement)
 
+    def on_g54_button_release_event(self, widget, data=None):
+		if not self.check_button_permissions(widget): return
+		self.issue_mdi('g54')
+		
+    def on_g55_button_release_event(self, widget, data=None):
+		if not self.check_button_permissions(widget): return
+		self.issue_mdi('g55')
+		
+    def on_g56_button_release_event(self, widget, data=None):
+		if not self.check_button_permissions(widget): return
+		self.issue_mdi('g56')
+		
+    def on_g57_button_release_event(self, widget, data=None):
+		if not self.check_button_permissions(widget): return
+		self.issue_mdi('g57')
+		
+    def on_g58_button_release_event(self, widget, data=None):
+		if not self.check_button_permissions(widget): return
+		self.issue_mdi('g58')
+		
+    def on_g59_button_release_event(self, widget, data=None):
+		if not self.check_button_permissions(widget): return
+		self.issue_mdi('g59')
+		
+    def on_g591_button_release_event(self, widget, data=None):
+		if not self.check_button_permissions(widget): return
+		self.issue_mdi('g59.1')
+		
+    def on_g592_button_release_event(self, widget, data=None):
+		if not self.check_button_permissions(widget): return
+		self.issue_mdi('g59.2')
+		
+    def on_g593_button_release_event(self, widget, data=None):
+		if not self.check_button_permissions(widget): return
+		self.issue_mdi('g59.3')
 
     # ---------------------------------------------------------------------
     # File tab
@@ -7358,6 +7246,25 @@ class mill(TormachUIBase):
         probing.move_and_set_probe_length(self)
 
 
+    # -------------------------------------------------------------------------------------------------
+    # x/y probing
+    # -------------------------------------------------------------------------------------------------
+			
+    def on_sa_probe_find_corner_northwest_button_release_event(self, widget, data=None):
+        if not self.check_button_permissions(widget): return
+        probing.find_corner_northwest(self)
+        
+    def on_sa_probe_find_corner_northeast_button_release_event(self, widget, data=None):
+        if not self.check_button_permissions(widget): return
+        probing.find_corner_northeast(self)
+        
+    def on_sa_probe_find_corner_southeast_button_release_event(self, widget, data=None):
+        if not self.check_button_permissions(widget): return
+        probing.find_corner_southeast(self)
+
+    def on_sa_probe_find_corner_southwest_button_release_event(self, widget, data=None):
+        if not self.check_button_permissions(widget): return
+        probing.find_corner_southwest(self)
 
     # -------------------------------------------------------------------------------------------------
     # conversational helpers
@@ -8645,6 +8552,7 @@ class mill(TormachUIBase):
             self.set_indicator_led('acc_input_led1',self.probe_tripped_display)
             self.set_indicator_led('acc_input_led2',self.probe_tripped_display)
             self.set_indicator_led('acc_input_led3',self.probe_tripped_display)
+            self.set_indicator_led('acc_input_led_sa',self.probe_tripped_display)
             if self.probe_tripped_display:
                 self.set_image('ets_image', 'Sensor-set-LED.png')
                 self.set_image('touch_entire_tray_ets_image', 'Sensor-set-LED.png')
@@ -8655,8 +8563,6 @@ class mill(TormachUIBase):
                 self.set_image('touch_entire_tray_ets_image', 'Sensor-set-No-LED.png')
                 self.set_image('probe_sensor_set_image', 'Sensor-set-No-LED.png')
                 self.set_image('injection_molder_image', 'Injection Molder.png')
-
-
 
     def update_mill_status_leds(self):
         # diagnostic LEDs
