@@ -1,5 +1,4 @@
 # 4 Corners Probe for PathPilot v1.19.13 ONLY!
-<img src="/sharmstr/4_Corners_Probe/blob/master/probe_screen.png?raw=true" alt="probe_screen.png">
 Adds new PathPilot probing tab "Corner Probes" and hotkeys to probe NW, SW, NE or SE corner. You must be on the Probing screen.
 
 <b>Keyboard Shortcuts:</b>
@@ -22,6 +21,14 @@ Copy the v1.9.13 folder from the usb drive to the HOME FOLDER<br>
 Merge All and Replace All when prompted<br>
 ALT+TAB to cycle back to PathPilot and restart<br>
 You should now see "V1.9.13-SA" in the lower right.
+
+<b>Reverting Back to V1.9.13<b>
+  
+The orginal files are included so if you want to revert back, just remove the "-orig" extention on:
+
+v1.9.13/python/tormach_mill_ui.py-orig<br>
+v1.9.13/python/probing.py-orig<br>
+v1.9.13/python/images/tormach_mill_ui.glade-orig<br>
 
 <b>DISCLAIMER:</b> Use at your own risk. After installing you should test each probing routine with your probe far away from any part. Use your finger to trigger the probe.  Also, cycle through each WCS button to ensure they are working correctly.
 
