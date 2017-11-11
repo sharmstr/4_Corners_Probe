@@ -10,7 +10,7 @@ F12 = South West Corner (Default PP corner probing)<br>
 
 This will not change the default SW corner probing routine found on the PathPilot X/Y/Z Probe tab.  These routines work exactly like the default PathPilot corner probe routine in that you need to have your probe tip positioned less than .750 away from the corner in both x and y. The PathPilot version number in the lower right hand corner of the screen will read V1.9.13-SA
 
-Also adds new buttons to change WCS.  Note: There wasnt much room to put "G" on the buttons.  So, button 54 is G54, etc.
+Also adds new buttons to change WCS.  <b>Note:</b> There wasnt much room to put "G" on the buttons.  So, button 54 is G54, etc.
 
 <b>Installation</b>
 
