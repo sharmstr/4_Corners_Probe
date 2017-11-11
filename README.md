@@ -22,7 +22,7 @@ Merge All and Replace All when prompted<br>
 ALT+TAB to cycle back to PathPilot and restart<br>
 You should now see "V1.9.13-SA" in the lower right.
 
-<b>Reverting Back to V1.9.13<b>
+<b>Reverting Back to V1.9.13</b>
   
 The orginal files are included so if you want to revert back, just remove the "-orig" extention on:
 
