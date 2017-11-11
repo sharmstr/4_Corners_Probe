@@ -1,4 +1,4 @@
-# 4 Corners Probe
+# 4 Corners Probe for PathPilot v1.19.13 ONLY!
 Adds new PathPilot probing tab "Corner Probes" and hotkeys to probe NW, SW, NE or SE corner. You must be on the Probing screen.
 
 <b>Keyboard Shortcuts:</b>
