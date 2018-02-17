@@ -1,5 +1,5 @@
 # 4 Corners Probe for PathPilot v1.19.13 ONLY!
-(v2.0.1 can be found here: https://github.com/sharmstr/PathPilot-v2-Probing)
+(v2.0.2 version will be available once Tormach release's it)
 
 ![alt tag](https://github.com/sharmstr/4_Corners_Probe/blob/master/probe_screen.png)
 
